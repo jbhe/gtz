@@ -1,0 +1,18 @@
+GTZ 0.2.2b changelog：
+
+1. Support massive small files (<500MB each) compression with tar:
+To compress a large number of small files (500MB or less) to an package or transfer to the cloud, GTZ can work with tar by using pipe. It is very useful to compress and transfer amounts of small data at very fast speed. (Note: In this way, GTZ uses binary data compression algorithm, the fastq or fastq.gz files inside the tar package will not be treated specially ).
+tar -cf - ./you_dir_or_file | gtz -o /dest.gtz
+
+Direct compression to AWS S3 or Aliyun OSS: 
+tar -cf - ./you_dir_or_file | gtz -o s3://bucket/dest.gtz
+tar -cf - ./you_dir_or_file | gtz -o oss://bucket/dest.gtz
+
+Direct decompression：
+gtz -c -d /dest.gtz | tar -xf - 
+gtz -c -d s3://bucket/dest.gtz | tar -xf - 
+gtz -c -d oss://bucket/dest.gtz | tar -xf - 
+
+Notice: Large size files (500MB or more) or the directory full of Large size files, especially fastq or fastq.gz file or its directory, we suggest to use GTZ to directly compress and package, it will be more faster.
+
+2. Fixed the quality line processing bug of the fastq file.
